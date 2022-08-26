@@ -1,0 +1,66 @@
+
+import math
+import random
+from sympy import parse_expr, symbols
+
+
+# 1.) Вычислить число c заданной точностью d
+#     Пример: - при $d = 0.001, π = 3.141.$    $10^{-1} ≤ d ≤10^{-10}$
+
+# num_with_given_precision_d = input('Введите число с заданной точностью d: ')
+# print(round(math.pi,len(num_with_given_precision_d)-2))
+
+# 2.) Задайте натуральное число N. 
+#     Напишите программу, которая составит список простых множителей числа N.
+
+# try:
+#     n = int(input('Enter N: '))
+#     while n % 2 == 0:
+#         print (2),
+#         n = n / 2   
+#     for i in range(3,int(math.sqrt(n))+1,2):
+#           while (n % i == 0):
+#               print (i)
+#               n = n / i
+#     if n > 2:
+#         print (int(n))
+# except ValueError:
+#     print('Упс!Попробуй ввести число!')
+
+# 3.) Задайте последовательность чисел. Напишите программу, которая выведет список
+#     неповторяющихся элементов исходной последовательности.
+
+# my_mas = [1, 1, 4, 4, 6, 1, 8, 9]
+# print(set(my_mas))
+
+# 4.) Задана натуральная степень k. Сформировать случайным образом список коэффициентов 
+#   (значения от 0 до 100) многочлена и записать в файл многочлен степени k.
+#   Пример: - k=2 => 2*x² + 4*x + 5 = 0 или x² + 5 = 0 или 10*x² = 0
+
+# try:
+#     num_k = int(input('Введите натуральную степень k: '))
+#     tmp = ''
+#     for i in range(num_k + 1):
+#         if i == 0:
+#             tmp = tmp + str(random.randint(0, 100)) + '*x^' + str(num_k-i)
+#         else:
+#             tmp = tmp + '+' + str(random.randint(0, 100)) + '*x^' + str(num_k-i)
+#     print(tmp)
+# except ValueError:
+#     print('Упс! Что-то пошло не так. Введите целое число')
+
+# 5.) Даны два файла, в каждом из которых находится запись многочлена. 
+#     Задача - сформировать файл, содержащий сумму многочленов.
+
+FILE1_CONST = 'file1.txt'
+FILE2_CONST = 'file2.txt'
+with open(FILE1_CONST, 'r') as file:
+    one_num = file.read()
+with open(FILE2_CONST, 'r') as file:
+    two_num = file.read()
+print(f'{one_num}+{two_num}')
+x = symbols('x')
+one_num = parse_expr(one_num.replace('^','**'), local_dict={'x':x})
+two_num = parse_expr(two_num.replace('^','**'), local_dict={'x':x})
+sum_num = one_num + two_num
+print(sum_num)
